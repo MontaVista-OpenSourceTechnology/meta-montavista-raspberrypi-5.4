@@ -1,0 +1,64 @@
+This README file contains information on building the Raspberry Pi4
+kernel using MontaVista's kernel tree instead of the standard
+Raspberry Pi one.  This is compatible with the meta-raspberrypi-xen
+layer and integrates the real-time patch and live application
+coredump, along with standard MontaVista product maintenance.
+
+Dependencies
+============
+
+This layer depends on:
+
+  URI: git://git.yoctoproject.org/poky
+  branch: dunfell
+
+  URI: git://git.yoctoproject.org/meta-raspberrypi
+  branch: dunfell
+
+  URI: https://github.com/MontaVista-OpenSourceTechnology/meta-montavista-cgx
+  branch: dunfell
+
+Patches
+=======
+
+Please submit any patches against the meta-montavista-raspberrypi-5.4
+layer to the maintainer:
+
+Maintainer: Corey Minyard <cminyard@mvista.com>
+
+Table of Contents
+=================
+
+  I. Adding the meta-montavista-raspberrypi layer to your build
+ II. Misc
+
+I. Adding the meta-montavista-raspberrypi layer to your build
+=============================================================
+
+This layer requires using the MontaVista OpenCGX releases.  Go to
+https://github.com/MontaVista-OpenSourceTechnology/opencgx-rasberrypi
+and follow the instructions for installation.
+
+Then get this layer via git and add it to bblayers:
+
+  git clone https://github.com/MontaVista-OpenSourceTechnology/meta-montavista-raspberrypi.git ../layers/meta-raspberrypi-xen
+  (cd $TOPDIR/layers/meta-raspberrypi-xen; git checkout dunfell)
+  bitbake-layers add-layer $TOPDIR/layers/meta-montavista-raspberrypi
+
+Then add the following to your local.conf to switch to this kernel
+instead of the stock 4.19 version:
+
+PREFERRED_PROVIDER_virtual/kernel = "linux-mvista"
+
+Rebuild, and you should be using the new kernel.
+
+II. Misc
+========
+
+This kernel is not yet extensively tested.
+
+It is an integration of the Raspberry Pi 5.4 kernel and the MontaVista
+kernel.  The Raspberry Pi 5.4 kernel is currently rebasing, we are
+keeping a repository at
+  https://github.com/MontaVista-OpenSourceTechnology/linux-pi
+that provides a non-rebasing track of the Raspberry Pi 5.4 kernel.
