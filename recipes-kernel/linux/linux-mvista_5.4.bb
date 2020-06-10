@@ -28,3 +28,13 @@ KCONF_BSP_AUDIT_LEVEL = "0"
 COMPATIBLE_MACHINE = "null"
 COMPATIBLE_MACHINE_raspberrypi4-64 = "raspberrypi4-64"
 COMPATIBLE_MACHINE_raspberrypi4-64-xen = "raspberrypi4-64-xen"
+
+# Xen-specific stuff below
+FILESEXTRAPATHS_prepend_rpixen := "${THISDIR}/files:"
+
+SRC_URI_append_rpixen += "file://xen.cfg"
+
+do_deploy_append_rpixen() {
+    # Override the cmdline.txt to be what we need.
+    echo "console=hvc0 clk_ignore_unused root=/dev/mmcblk0p2 rootwait" >${DEPLOYDIR}/bcm2835-bootfiles/cmdline.txt
+}
