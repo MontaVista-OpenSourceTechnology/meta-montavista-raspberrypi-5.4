@@ -41,8 +41,8 @@ and follow the instructions for installation.
 
 Then get this layer via git and add it to bblayers:
 
-  git clone https://github.com/MontaVista-OpenSourceTechnology/meta-montavista-raspberrypi.git ../layers/meta-raspberrypi-xen
-  (cd $TOPDIR/layers/meta-raspberrypi-xen; git checkout dunfell)
+  git clone https://github.com/MontaVista-OpenSourceTechnology/meta-montavista-raspberrypi.git ../layers/meta-montavista-raspberrypi
+  (cd $TOPDIR/layers/meta-montavista-raspberrypi; git checkout dunfell)
   bitbake-layers add-layer $TOPDIR/layers/meta-montavista-raspberrypi
 
 Then add the following to your local.conf to switch to this kernel
